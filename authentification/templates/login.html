@@ -1,12 +1,13 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-        <!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
@@ -17,14 +18,45 @@
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
-   <div class="jumbotron">Bienvenue</div>
+    <form action="" method="post" novalidate> {% csrf_token %}
+        <div class="container mt-5  mt-xl-5  mt-lg-4  mt-sm-5">
+            <div class="jumbotron  mx-auto col-sm-auto col-xl-4 col-lg-auto shadow bg-white">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger shadow text-center " role="alert">
+                    <strong>{{message}}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <h2 class="text-center mb-4">
+                    <strong>Connexion</strong>
+                </h2>
+                <label for="identifiant"> <strong> Identifiant</strong>:</label>
+                {{ formulaire.username }}
+                {% if formulaire.username.errors %}
+                {% for error in formulaire.username.errors %}
+                    <div class="invalid-feedback">
+                        Ce champs est obligatoire
+                    </div>
+                {% endfor %}
+                {% endif %}
+                <label for="password"><strong>Mot de passe</strong>:</label>
+                {{ formulaire.password }}
+                {% if formulaire.password.errors %}
+                    {% for error in formulaire.password.errors  %}
+                        <div class="invalid-feedback">
+                                Ce champs est obligatoire
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <input type="submit" value="Se connecter" class="btn ml-0 btn-blue-grey btn-block mt-3">
+            </div>
+        </div>
+    </form>
+
 </body>
-<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="{% static 'js/bootstrap.min.js '%}"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="{% static 'js/mdb.min.js '%}"></script>
+
 </html>
