@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .forms import LoginForm
-from django.contrib.auth import login,authenticate 
+from django.contrib.auth import login,authenticate,logout 
 from django.contrib.auth.models import User
 from django.contrib import messages
 # Create your views here.
@@ -33,3 +33,7 @@ def login_blog(request):
     #
     form=LoginForm()
     return render(request,"login.html",{'formulaire':form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('connexion')
