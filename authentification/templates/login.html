@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,49 +19,68 @@
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+<style>
+    .alert-error {
+        background-color: rgb(170, 31, 31);
+        color: aliceblue;
+    }
+
+    .alert-info {
+        background-color: rgb(3, 151, 170);
+        color: aliceblue;
+    }
+
+    .alert-success {
+        background-color: rgb(25, 160, 36);
+        color: aliceblue;
+    }
+</style>
 
 <body>
-        {% if user.is_authenticated %}
-            <h1 class ="text-center mt-5">Vous êtes dejà connecté <br> retourner à l'<a href="{% url 'home' %}">accueil</a> ?</h1>
-        {% else %}
-        <form action="" method="post" novalidate> {% csrf_token %}
-            <div class="container mt-5  mt-xl-5  mt-lg-4  mt-sm-5">
-                <div class="jumbotron  mx-auto col-sm-auto col-xl-4 col-lg-auto shadow bg-white">
-                    {% if messages %}
-                    {% for message in messages %}
-                    <div class="alert alert-danger shadow text-center " role="alert">
-                        <strong>{{message}}</strong>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-                    <h2 class="text-center mb-4">
-                        <strong>Connexion</strong>
-                    </h2>
-                    <label for="identifiant"> <strong> Identifiant</strong>:</label>
-                    {{ formulaire.username }}
-                    {% if formulaire.username.errors %}
-                    {% for error in formulaire.username.errors %}
-                        <div class="invalid-feedback">
-                            Ce champs est obligatoire
-                        </div>
-                    {% endfor %}
-                    {% endif %}
-                    <label for="password"><strong>Mot de passe</strong>:</label>
-                    {{ formulaire.password }}
-                    {% if formulaire.password.errors %}
-                        {% for error in formulaire.password.errors  %}
-                            <div class="invalid-feedback">
-                                    Ce champs est obligatoire
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                    
-                    <input type="submit" value="Se connecter" class="btn ml-0 btn-blue-grey btn-block mt-3">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} rounded-0 mt-0 shadow text-center " role="alert">
+        <strong>{{message}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if user.is_authenticated %}
+    <h1 class="text-center mt-5">Vous êtes dejà connecté <br> retourner à l'<a href="{% url 'home' %}">accueil</a> ?
+    </h1>
+    {% else %}
+    <form action="" method="post" novalidate> {% csrf_token %}
+        
+        <div class="container  mt-5  mt-xl-6  mt-lg-4  mt-sm-5">
+            <div class="jumbotron  mx-auto col-sm-auto col-xl-4  col-lg-auto shadow bg-white">
+
+                <h2 class="text-center mb-4">
+                    <div class="font-weight-bold">Connexion</div>
+                </h2>
+                <label for="identifiant" class="font-weight-bold">Indentifiant:</label>
+                {{ formulaire.username }}
+                {% if formulaire.username.errors %}
+                {% for error in formulaire.username.errors %}
+                <div class="invalid-feedback">
+                    Ce champs est obligatoire
                 </div>
+                {% endfor %}
+                {% endif %}
+                <label for="password" class="font-weight-bold">Mot de passe:</label>
+                {{ formulaire.password }}
+                {% if formulaire.password.errors %}
+                {% for error in formulaire.password.errors %}
+                <div class="invalid-feedback">
+                    Ce champs est obligatoire
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <input type="submit" value="Se connecter" class="btn ml-0 btn-blue-grey btn-block mt-3">
             </div>
-        </form>
-    
-        {% endif%}
+        </div>
+    </form>
+
+    {% endif%}
 </body>
 
 </html>

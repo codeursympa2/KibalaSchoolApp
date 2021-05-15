@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'authentification',
     'administration',
     'school',
+    'bootstrapform' ,
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'KibalaSchoolApp.get_username.RequestMiddleware',
 ]
 
 ROOT_URLCONF = 'KibalaSchoolApp.urls'
@@ -131,3 +133,5 @@ STATIC_URL = '/static/'
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
 MEDIA_URL='/media/'
+
+LOGIN_URL="/"
